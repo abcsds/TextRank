@@ -41,21 +41,16 @@ def textRank(file):
 
 
     def sim(word_pos_stream):
-        """"
-        This might be a more general solution for our structure--------------
-        the similarity function return a dictionary of form:
-        {
-            "sourceWord": [["destinationWord", similarity],...],
-            ...
-        }
-        """
-
         similarities = {}
         windowsize = 5
         i = 0
         while i < len(word_pos_stream) - windowsize - 1:
             #get the sliding window
             window = word_pos_stream[i: i + windowsize]
+
+            if(window[0][0] == "dursleys"):
+                gogog=0
+
             #filter the sliding window
             window = [x[0] for x in window if x[1] in ['NN', 'NNP', 'NNS', 'NNPS', 'JJ', 'JJR', 'JJS']]
 
@@ -77,12 +72,16 @@ def textRank(file):
         returns a networkx graph
         """
         G = nx.Graph()
+        n = 0
         for src, destinations in list_of_edges.items():
             for dest in destinations:
                 try:
                     G.add_edge(src, dest[0], weight=dest[1])
+                    n += 1
                 except IndexError:
                     pass
+
+        #print(n)
         return G
 
     print("prepocess...")
