@@ -29,10 +29,13 @@ def histogram(pageRank):
         hist[score] += 1
 
     x = sorted(hist)
-    x = x[::-1]
+    #x = x[::-1]
     y = []
     for i in x:
         y.append(hist[i])
 
     plt.plot(x, y)
+    plt.xlabel("Score")
+    plt.ylabel("Frequency")
+    plt.ylim([0, 100])
     plt.show()
